@@ -1,8 +1,5 @@
-import pandas as pd
-import os
+from src.data_loader import Dados
 
-diretorio = os.getcwd()
-dado = os.path.join(diretorio, 'data', 'bruto', 'Technical Support Dataset.csv')
-df = pd.read_csv(dado, sep=',')
+teste = Dados.dado_limpo()
 
-print(df)
+print(teste)
