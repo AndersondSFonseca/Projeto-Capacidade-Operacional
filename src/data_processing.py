@@ -2,7 +2,7 @@ from src.data_loader import Dados
 
 import pandas as pd
 
-df = Dados.dado_bruto().copy
+df = Dados.dado_bruto().copy()
 
 print(df)
 
@@ -29,6 +29,32 @@ traducao_colunas = {
     "Country": "pais"
 }
 
-df.columns
-
 df.rename(columns=traducao_colunas, inplace=True)
+# pd.set_option('display.max_columns', None)
+retirar_coluna = ([
+    'grupo_atendimento',
+    'sla_previsto_primeira_resposta',
+    'cumpriu_sla_primeira_resposta',
+    'cumpriu_sla_resolucao',
+    'interacoes_analista',
+    'resultado_pesquisa_satisfacao',
+    'grupo_produto',
+    'nivel_suporte',
+    'pais',
+    'Latitude',
+    'Longitude'])
+
+df.drop(retirar_coluna, axis=1, inplace=True)
+df.set_index('id_ticket', inplace=True)
+df.columns
+df
+df['data_abertura'] = pd.to_datetime(df['data_abertura'])
+df['data_fechamento'] = pd.to_datetime(df['data_fechamento'])
+
+##criar tempo em minutos de resolução
+
+df['tempo_resolucao_horas'] = (df['data_fechamento'] - df['data_abertura'])
+df
+df['tempo_resolucao_horas']
+
+df.to_csv('teste.csv', index=False)
