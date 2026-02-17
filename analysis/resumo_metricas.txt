@@ -1,5 +1,6 @@
 
     Resumo Operacional
+    
     ==================
     Tempo médio de resolução (horas): 95.09
     
