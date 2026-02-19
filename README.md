@@ -1,4 +1,4 @@
-# 📊 Análise de Capacidade Operacional -- Equipe de Suporte Técnico
+# 📊 Análise de Capacidade Operacional - Equipe de Suporte Técnico
 
 ## 📌 Contexto
 
@@ -43,7 +43,7 @@ Projeto - Capacidade Operacional │ ├── data/ │ ├── raw/ │ ├�
 02_validar_metricas.ipynb │ ├── 03_visualizacao.ipynb │ ├── src/ │ ├──
 data_processing.py │ ├── metrics.py │ ├── analysis_export.py │ ├──
 analysis_visuals.py │ ├── analysis/ │ ├── arquivos CSV gerados │ ├──
-gráficos exportados │ ├── main.py
+gráficos exportados │
 
 O projeto foi estruturado separando responsabilidades: - Processamento e
 limpeza de dados - Cálculo de métricas operacionais - Exportação de
