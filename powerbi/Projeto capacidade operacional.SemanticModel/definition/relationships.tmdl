@@ -1,0 +1,25 @@
+relationship 8e7380cb-b5c7-4a5f-9d9c-2f8b13c9e194
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Technical Suport Dataset (tratado)'.data_abertura
+	toColumn: LocalDateTable_70145870-6d75-404d-a15f-12cb48611a31.Date
+
+relationship 11f38d87-d98d-4796-abc4-935f447cf244
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Technical Suport Dataset (tratado)'.sla_previsto_resolucao
+	toColumn: LocalDateTable_23ef7d89-2221-4292-8c2b-baad2be93561.Date
+
+relationship 5f0f024e-7f30-4b37-af10-6a434abb5fb3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Technical Suport Dataset (tratado)'.tempo_primeira_resposta
+	toColumn: LocalDateTable_83823ae5-d397-4467-8bd1-ba968c9a76de.Date
+
+relationship 26bad52f-fda2-49f9-af91-6b43231b64cc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Technical Suport Dataset (tratado)'.tempo_resolucao
+	toColumn: LocalDateTable_cba56037-1a57-4819-913d-f5a66a96c4ef.Date
+
+relationship f2315f8f-876c-49c7-9366-a0857ce53a70
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Technical Suport Dataset (tratado)'.data_fechamento
+	toColumn: LocalDateTable_ddd4fab0-9e9d-4b1f-8117-447240e46fe1.Date
+

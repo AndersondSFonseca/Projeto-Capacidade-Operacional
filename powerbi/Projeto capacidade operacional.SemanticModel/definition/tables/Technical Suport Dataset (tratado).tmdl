@@ -1,0 +1,153 @@
+table 'Technical Suport Dataset (tratado)'
+	lineageTag: eb0864ba-78c2-4123-bebd-548c734b89b7
+
+	column id_ticket
+		dataType: int64
+		formatString: 0
+		lineageTag: 0518a612-4aff-455e-9f6c-daa2774c2233
+		summarizeBy: sum
+		sourceColumn: id_ticket
+
+		annotation SummarizationSetBy = Automatic
+
+	column status_ticket
+		dataType: string
+		lineageTag: 37a8e61e-02b9-48de-9ab8-29f35604acf3
+		summarizeBy: none
+		sourceColumn: status_ticket
+
+		annotation SummarizationSetBy = Automatic
+
+	column prioridade
+		dataType: string
+		lineageTag: 6cbb7186-caca-4599-b444-b1f24df67cfc
+		summarizeBy: none
+		sourceColumn: prioridade
+
+		annotation SummarizationSetBy = Automatic
+
+	column origem_ticket
+		dataType: string
+		lineageTag: 64805a4f-1d06-47dc-9eec-865490cde425
+		summarizeBy: none
+		sourceColumn: origem_ticket
+
+		annotation SummarizationSetBy = Automatic
+
+	column topico
+		dataType: string
+		lineageTag: ea79cf95-8506-4878-bfba-a88a8bc1bdea
+		summarizeBy: none
+		sourceColumn: topico
+
+		annotation SummarizationSetBy = Automatic
+
+	column analista_responsavel
+		dataType: string
+		lineageTag: aa3475f4-7e3c-4503-b8cd-82e6013e93cb
+		summarizeBy: none
+		sourceColumn: analista_responsavel
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_abertura
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ed2d1025-863c-4171-ac57-66b54a15575c
+		summarizeBy: none
+		sourceColumn: data_abertura
+
+		variation Variation
+			isDefault
+			relationship: 8e7380cb-b5c7-4a5f-9d9c-2f8b13c9e194
+			defaultHierarchy: LocalDateTable_70145870-6d75-404d-a15f-12cb48611a31.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sla_previsto_resolucao
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 74a12249-3d51-4d3e-8062-e5a7cbbf157c
+		summarizeBy: none
+		sourceColumn: sla_previsto_resolucao
+
+		variation Variation
+			isDefault
+			relationship: 11f38d87-d98d-4796-abc4-935f447cf244
+			defaultHierarchy: LocalDateTable_23ef7d89-2221-4292-8c2b-baad2be93561.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column tempo_primeira_resposta
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3a28d52d-3c70-457b-b601-0646ce493bb1
+		summarizeBy: none
+		sourceColumn: tempo_primeira_resposta
+
+		variation Variation
+			isDefault
+			relationship: 5f0f024e-7f30-4b37-af10-6a434abb5fb3
+			defaultHierarchy: LocalDateTable_83823ae5-d397-4467-8bd1-ba968c9a76de.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column tempo_resolucao
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1e29a59a-4674-4ac9-8d12-8a67c1c8be9b
+		summarizeBy: none
+		sourceColumn: tempo_resolucao
+
+		variation Variation
+			isDefault
+			relationship: 26bad52f-fda2-49f9-af91-6b43231b64cc
+			defaultHierarchy: LocalDateTable_cba56037-1a57-4819-913d-f5a66a96c4ef.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_fechamento
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0202015d-dfe7-44c6-9903-fa854c528600
+		summarizeBy: none
+		sourceColumn: data_fechamento
+
+		variation Variation
+			isDefault
+			relationship: f2315f8f-876c-49c7-9366-a0857ce53a70
+			defaultHierarchy: LocalDateTable_ddd4fab0-9e9d-4b1f-8117-447240e46fe1.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column tempo_resolucao_horas
+		dataType: int64
+		formatString: 0
+		lineageTag: ce45f3e3-2fa7-464b-8855-93f5ad63b3ef
+		summarizeBy: sum
+		sourceColumn: tempo_resolucao_horas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Technical Suport Dataset (tratado)' = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\Anderson Santos\Programing Python\Projeto - Capacidade Operacional\data\tratado\Technical Suport Dataset (tratado).csv"),[Delimiter=",", Columns=12, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"id_ticket", Int64.Type}, {"status_ticket", type text}, {"prioridade", type text}, {"origem_ticket", type text}, {"topico", type text}, {"analista_responsavel", type text}, {"data_abertura", type datetime}, {"sla_previsto_resolucao", type datetime}, {"tempo_primeira_resposta", type datetime}, {"tempo_resolucao", type datetime}, {"data_fechamento", type datetime}, {"tempo_resolucao_horas", Int64.Type}}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Tipo Alterado","Closed","Encerrado",Replacer.ReplaceText,{"status_ticket"}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído","In progress","Em andamento",Replacer.ReplaceText,{"status_ticket"}),
+				    #"Valor Substituído2" = Table.ReplaceValue(#"Valor Substituído1","Resolved","Encerrado",Replacer.ReplaceText,{"status_ticket"}),
+				    #"Valor Substituído3" = Table.ReplaceValue(#"Valor Substituído2","Open","Aberto",Replacer.ReplaceText,{"status_ticket"}),
+				    #"Valor Substituído4" = Table.ReplaceValue(#"Valor Substituído3","Low","Baixo",Replacer.ReplaceText,{"prioridade"}),
+				    #"Valor Substituído5" = Table.ReplaceValue(#"Valor Substituído4","Medium","Médio",Replacer.ReplaceText,{"prioridade"}),
+				    #"Valor Substituído6" = Table.ReplaceValue(#"Valor Substituído5","High","Alto",Replacer.ReplaceText,{"prioridade"}),
+				    #"Valor Substituído7" = Table.ReplaceValue(#"Valor Substituído6","Phone","Telefone",Replacer.ReplaceText,{"origem_ticket"})
+				in
+				    #"Valor Substituído7"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
