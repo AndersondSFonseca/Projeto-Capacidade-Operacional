@@ -1,6 +1,163 @@
 table 'Technical Suport Dataset (tratado)'
 	lineageTag: eb0864ba-78c2-4123-bebd-548c734b89b7
 
+	measure 'Total Tickets' = COUNTROWS('Technical Suport Dataset (tratado)')
+		formatString: #,0
+		lineageTag: m001-total-tickets
+
+		annotation SummarizationSetBy = User
+
+	measure 'Tickets Encerrados' =
+			CALCULATE(
+			    COUNTROWS('Technical Suport Dataset (tratado)'),
+			    'Technical Suport Dataset (tratado)'[status_ticket] = "Encerrado"
+			)
+		formatString: #,0
+		lineageTag: m002-tickets-encerrados
+
+		annotation SummarizationSetBy = User
+
+	measure 'Tickets Em Andamento' =
+			CALCULATE(
+			    COUNTROWS('Technical Suport Dataset (tratado)'),
+			    'Technical Suport Dataset (tratado)'[status_ticket] = "Em andamento"
+			)
+		formatString: #,0
+		lineageTag: m003-tickets-em-andamento
+
+		annotation SummarizationSetBy = User
+
+	measure 'Tickets Abertos' =
+			CALCULATE(
+			    COUNTROWS('Technical Suport Dataset (tratado)'),
+			    'Technical Suport Dataset (tratado)'[status_ticket] = "Aberto"
+			)
+		formatString: #,0
+		lineageTag: m004-tickets-abertos
+
+		annotation SummarizationSetBy = User
+
+	measure Backlog = [Tickets Em Andamento] + [Tickets Abertos]
+		formatString: #,0
+		lineageTag: m005-backlog
+
+		annotation SummarizationSetBy = User
+
+	measure 'Tempo Médio Resolução (h)' =
+			CALCULATE(
+			    AVERAGE('Technical Suport Dataset (tratado)'[tempo_resolucao_horas]),
+			    'Technical Suport Dataset (tratado)'[status_ticket] = "Encerrado"
+			)
+		formatString: #,0.0
+		lineageTag: m006-tempo-medio-resolucao
+
+		annotation SummarizationSetBy = User
+
+	measure 'Saldo Diário Médio' =
+			VAR _recebidos = [Total Tickets]
+			VAR _resolvidos = [Tickets Encerrados]
+			RETURN DIVIDE(_recebidos - _resolvidos, 1)
+		formatString: #,0.0
+		lineageTag: m007-saldo-diario-medio
+
+		annotation SummarizationSetBy = User
+
+	measure 'Tickets com SLA Válido' =
+			CALCULATE(
+			    COUNTROWS('Technical Suport Dataset (tratado)'),
+			    'Technical Suport Dataset (tratado)'[status_ticket] = "Encerrado",
+			    NOT(ISBLANK('Technical Suport Dataset (tratado)'[sla_previsto_resolucao])),
+			    NOT(ISBLANK('Technical Suport Dataset (tratado)'[data_fechamento]))
+			)
+		formatString: #,0
+		lineageTag: m008-tickets-sla-valido
+
+		annotation SummarizationSetBy = User
+
+	measure 'Tickets Cumpriram SLA' =
+			CALCULATE(
+			    COUNTROWS('Technical Suport Dataset (tratado)'),
+			    'Technical Suport Dataset (tratado)'[status_ticket] = "Encerrado",
+			    NOT(ISBLANK('Technical Suport Dataset (tratado)'[sla_previsto_resolucao])),
+			    NOT(ISBLANK('Technical Suport Dataset (tratado)'[data_fechamento])),
+			    'Technical Suport Dataset (tratado)'[data_fechamento] <= 'Technical Suport Dataset (tratado)'[sla_previsto_resolucao]
+			)
+		formatString: #,0
+		lineageTag: m009-tickets-cumpriram-sla
+
+		annotation SummarizationSetBy = User
+
+	measure 'Taxa Cumprimento SLA' = DIVIDE([Tickets Cumpriram SLA], [Tickets com SLA Válido])
+		formatString: 0.0%
+		lineageTag: m010-taxa-cumprimento-sla
+
+		annotation SummarizationSetBy = User
+
+	measure 'Taxa Violação SLA' = 1 - [Taxa Cumprimento SLA]
+		formatString: 0.0%
+		lineageTag: m011-taxa-violacao-sla
+
+		annotation SummarizationSetBy = User
+
+	measure 'Produtividade (tickets/dia)' =
+			VAR _diasPeriodo =
+			    DATEDIFF(
+			        MINX('Technical Suport Dataset (tratado)', 'Technical Suport Dataset (tratado)'[data_abertura]),
+			        MAXX('Technical Suport Dataset (tratado)', 'Technical Suport Dataset (tratado)'[data_abertura]),
+			        DAY
+			    )
+			RETURN
+			    DIVIDE([Tickets Encerrados], _diasPeriodo)
+		formatString: 0.00
+		lineageTag: m012-produtividade-dia
+
+		annotation SummarizationSetBy = User
+
+	measure 'Tempo Médio 1ª Resposta (h)' =
+			VAR _base =
+			    CALCULATETABLE(
+			        'Technical Suport Dataset (tratado)',
+			        NOT(ISBLANK('Technical Suport Dataset (tratado)'[tempo_primeira_resposta])),
+			        NOT(ISBLANK('Technical Suport Dataset (tratado)'[data_abertura]))
+			    )
+			RETURN
+			    AVERAGEX(
+			        _base,
+			        DATEDIFF(
+			            'Technical Suport Dataset (tratado)'[data_abertura],
+			            'Technical Suport Dataset (tratado)'[tempo_primeira_resposta],
+			            HOUR
+			        )
+			    )
+		formatString: #,0.0
+		lineageTag: m013-tempo-medio-1resposta
+
+		annotation SummarizationSetBy = User
+
+	measure 'Backlog Acumulado' =
+			VAR _recebidosTotal =
+			    CALCULATE(
+			        COUNTROWS('Technical Suport Dataset (tratado)'),
+			        FILTER(
+			            ALL('Technical Suport Dataset (tratado)'),
+			            'Technical Suport Dataset (tratado)'[data_abertura] <= MAX('Technical Suport Dataset (tratado)'[data_abertura])
+			        )
+			    )
+			VAR _encerradosTotal =
+			    CALCULATE(
+			        COUNTROWS('Technical Suport Dataset (tratado)'),
+			        FILTER(
+			            ALL('Technical Suport Dataset (tratado)'),
+			            'Technical Suport Dataset (tratado)'[data_fechamento] <= MAX('Technical Suport Dataset (tratado)'[data_abertura])
+			                && NOT(ISBLANK('Technical Suport Dataset (tratado)'[data_fechamento]))
+			        )
+			    )
+			RETURN _recebidosTotal - _encerradosTotal
+		formatString: #,0
+		lineageTag: m014-backlog-acumulado
+
+		annotation SummarizationSetBy = User
+
 	column id_ticket
 		dataType: int64
 		formatString: 0
