@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "v05tend",
+  "position": {
+    "x": 800,
+    "y": 330,
+    "z": 0,
+    "height": 380,
+    "width": 470,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Technical Suport Dataset (tratado)"
+                    }
+                  },
+                  "Property": "origem_ticket"
+                }
+              },
+              "queryRef": "Technical Suport Dataset (tratado).origem_ticket",
+              "active": false
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Technical Suport Dataset (tratado)"
+                    }
+                  },
+                  "Property": "Total Tickets"
+                }
+              },
+              "queryRef": "Technical Suport Dataset (tratado).Total Tickets",
+              "active": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}

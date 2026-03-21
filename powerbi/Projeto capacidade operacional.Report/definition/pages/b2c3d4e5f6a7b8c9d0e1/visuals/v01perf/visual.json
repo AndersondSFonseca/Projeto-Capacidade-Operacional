@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "v01perf",
+  "position": {
+    "x": 10,
+    "y": 10,
+    "z": 0,
+    "height": 335,
+    "width": 780,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Technical Suport Dataset (tratado)"
+                    }
+                  },
+                  "Property": "analista_responsavel"
+                }
+              },
+              "queryRef": "Technical Suport Dataset (tratado).analista_responsavel",
+              "active": false
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Technical Suport Dataset (tratado)"
+                    }
+                  },
+                  "Property": "Tempo Médio Resolução (h)"
+                }
+              },
+              "queryRef": "Technical Suport Dataset (tratado).Tempo Médio Resolução (h)",
+              "active": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}
