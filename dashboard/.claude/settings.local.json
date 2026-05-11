@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/Anderson Santos/AppData/Local/Programs//**)",
+      "Read(//c/Users/Anderson Santos/.local//**)"
+    ]
+  }
+}
