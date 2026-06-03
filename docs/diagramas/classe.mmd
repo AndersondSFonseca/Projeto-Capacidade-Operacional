@@ -1,0 +1,55 @@
+classDiagram
+    direction LR
+
+    class Dados {
+        <<data_loader>>
+        +dado_bruto() DataFrame$
+    }
+
+    class DataProcessing {
+        <<data_processing>>
+        +tratar_dados() DataFrame
+        +salvar_dado_limpo(df) None
+    }
+
+    class Metrics {
+        <<metrics>>
+        +fechados(df) DataFrame
+        +volume_diario_recebidos(df) DataFrame
+        +volume_diario_resolvidos(df) DataFrame
+        +tempo_medio_resolucao_horas(df) float
+        +performance_media_por_analista(df) DataFrame
+        +capacidade_backlog_diaria(df) DataFrame
+    }
+
+    class AnalysisExport {
+        <<analysis_export>>
+        +salvar_metricas_analysis(vol_rec, vol_res, perf, cap, tmr) None
+    }
+
+    class AnalysisVisuals {
+        <<analysis_visuals>>
+        +salvar_graficos_analysis(vol_rec, cap, perf) None
+    }
+
+    class Main {
+        <<main.py>>
+        +main() None
+    }
+
+    class Dashboard {
+        <<dashboard/app.py>>
+        +carregar_dados() DataFrame
+        -render_visao_geral()
+        -render_analise_sla()
+        -render_performance()
+        -render_tendencias_backlog()
+    }
+
+    Main ..> DataProcessing : orquestra
+    DataProcessing ..> Dados : usa
+    Metrics ..> DataProcessing : consome dados tratados
+    AnalysisExport ..> Metrics : exporta resultados
+    AnalysisVisuals ..> Metrics : plota resultados
+    Dashboard ..> DataProcessing : carrega base tratada
+    Dashboard ..> Metrics : calcula KPIs

@@ -1,0 +1,28 @@
+flowchart LR
+    Gestor(["👤 Gestor / Coordenador<br/>de Suporte"])
+    Analista(["👤 Analista de Dados"])
+
+    subgraph SISTEMA["Sistema de BI — Capacidade Operacional"]
+        UC1(["Visualizar KPIs gerais"])
+        UC2(["Filtrar dados<br/>(período, prioridade, analista...)"])
+        UC3(["Analisar cumprimento de SLA"])
+        UC4(["Avaliar performance<br/>por analista"])
+        UC5(["Monitorar backlog<br/>(recebidos vs resolvidos)"])
+        UC6(["Identificar risco de<br/>acúmulo / gargalo"])
+        UC7(["Executar tratamento<br/>de dados (ETL)"])
+        UC8(["Exportar métricas<br/>e gráficos"])
+    end
+
+    Gestor --> UC1
+    Gestor --> UC2
+    Gestor --> UC3
+    Gestor --> UC4
+    Gestor --> UC5
+
+    Analista --> UC7
+    Analista --> UC8
+    Analista --> UC2
+
+    UC5 -.->|"«include»"| UC6
+    UC1 -.->|"«include»"| UC2
+    UC8 -.->|"«extend»"| UC7

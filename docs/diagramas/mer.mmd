@@ -1,0 +1,83 @@
+erDiagram
+    DIM_TEMPO          ||--o{ FATO_TICKET : "data de abertura"
+    DIM_TEMPO          ||--o{ FATO_TICKET : "data de fechamento"
+    DIM_ANALISTA       ||--o{ FATO_TICKET : "é atendido por"
+    DIM_STATUS         ||--o{ FATO_TICKET : "possui"
+    DIM_PRIORIDADE     ||--o{ FATO_TICKET : "classificado com"
+    DIM_ORIGEM         ||--o{ FATO_TICKET : "originado por"
+    DIM_TOPICO         ||--o{ FATO_TICKET : "trata sobre"
+    DIM_PRODUTO        ||--o{ FATO_TICKET : "refere-se a"
+    DIM_LOCALIZACAO    ||--o{ FATO_TICKET : "ocorre em"
+
+    FATO_TICKET {
+        int      id_ticket PK "Identificador do chamado"
+        int      sk_data_abertura FK "→ DIM_TEMPO"
+        int      sk_data_fechamento FK "→ DIM_TEMPO"
+        int      sk_analista FK "→ DIM_ANALISTA"
+        int      sk_status FK "→ DIM_STATUS"
+        int      sk_prioridade FK "→ DIM_PRIORIDADE"
+        int      sk_origem FK "→ DIM_ORIGEM"
+        int      sk_topico FK "→ DIM_TOPICO"
+        int      sk_produto FK "→ DIM_PRODUTO"
+        int      sk_localizacao FK "→ DIM_LOCALIZACAO"
+        datetime data_abertura "Created time"
+        datetime data_fechamento "Close time"
+        datetime sla_previsto_resolucao "Expected SLA to resolve"
+        decimal  tempo_resolucao_horas "MÉTRICA: TMR em horas"
+        decimal  tempo_primeira_resposta_horas "MÉTRICA: 1a resposta"
+        int      qtd_interacoes_analista "MÉTRICA: Agent interactions"
+        int      resultado_satisfacao "MÉTRICA: Survey results (1-5)"
+        boolean  flag_sla_resolucao "1 = dentro do SLA"
+        boolean  flag_sla_primeira_resposta "1 = dentro do SLA"
+    }
+
+    DIM_TEMPO {
+        int     sk_data PK
+        date    data_completa
+        int     ano
+        int     trimestre
+        int     mes
+        string  nome_mes
+        int     dia
+        string  dia_semana
+        int     semana_ano
+    }
+
+    DIM_ANALISTA {
+        int     sk_analista PK
+        string  nome_analista "Agent Name"
+        string  grupo_atendimento "1st / 2nd line support"
+        string  nivel_suporte "Tier 1 / Tier 2"
+    }
+
+    DIM_STATUS {
+        int     sk_status PK
+        string  status_ticket "Open, In progress, Resolved, Closed"
+    }
+
+    DIM_PRIORIDADE {
+        int     sk_prioridade PK
+        string  prioridade "Low, Medium, High"
+    }
+
+    DIM_ORIGEM {
+        int     sk_origem PK
+        string  origem_ticket "Chat, Email, Phone"
+    }
+
+    DIM_TOPICO {
+        int     sk_topico PK
+        string  topico "Bug report, Feature request, Product setup..."
+    }
+
+    DIM_PRODUTO {
+        int     sk_produto PK
+        string  grupo_produto "Custom software, Ready to use, Training..."
+    }
+
+    DIM_LOCALIZACAO {
+        int     sk_localizacao PK
+        string  pais "Country"
+        decimal latitude
+        decimal longitude
+    }

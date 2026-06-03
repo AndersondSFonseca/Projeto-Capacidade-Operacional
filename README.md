@@ -128,13 +128,28 @@ Projeto - Capacidade Operacional/
 ## 📐 Diagramas e Modelagem (Documentação Técnica)
 
 A documentação de modelagem do projeto está na pasta [`docs/`](docs/) (renderizada
-automaticamente pelo GitHub):
+automaticamente pelo GitHub). As imagens em **PNG** estão em [`docs/img/`](docs/img/) e a
+explicação de cada diagrama em [`docs/EXPLICACAO_DIAGRAMAS.md`](docs/EXPLICACAO_DIAGRAMAS.md).
 
-| Documento | Descrição |
-|-----------|-----------|
-| [Modelo de Dados (MER)](docs/MER.md) | Modelo dimensional (esquema estrela): Fato de tickets + dimensões, com chaves, cardinalidades e rastreabilidade dos campos. |
-| [Diagrama de Classes](docs/DIAGRAMA_CLASSE.md) | Arquitetura do código-fonte em camadas (carga → ETL → métricas → visualização → dashboard). |
-| [Diagrama de Casos de Uso](docs/CASO_DE_USO.md) | Interação dos atores (Gestor e Analista de Dados) com o sistema de BI. |
+| Documento | PNG | Descrição |
+|-----------|-----|-----------|
+| [Modelo de Dados (MER)](docs/MER.md) | [🖼️](docs/img/01_MER.png) | Modelo dimensional (esquema estrela): Fato de tickets + dimensões, com chaves, cardinalidades e rastreabilidade dos campos. |
+| [Diagrama de Classes](docs/DIAGRAMA_CLASSE.md) | [🖼️](docs/img/02_DIAGRAMA_CLASSE.png) | Arquitetura do código-fonte em camadas (carga → ETL → métricas → visualização → dashboard). |
+| [Diagrama de Casos de Uso](docs/CASO_DE_USO.md) | [🖼️](docs/img/03_CASO_DE_USO.png) | Interação dos atores (Gestor e Analista de Dados) com o sistema de BI. |
+
+#### Pré-visualização dos diagramas
+
+**MER — Modelo de Dados (esquema estrela)**
+
+![MER](docs/img/01_MER.png)
+
+**Diagrama de Classes**
+
+![Diagrama de Classes](docs/img/02_DIAGRAMA_CLASSE.png)
+
+**Diagrama de Casos de Uso**
+
+![Casos de Uso](docs/img/03_CASO_DE_USO.png)
 
 ---
 
