@@ -111,6 +111,19 @@ Projeto - Capacidade Operacional/
 
 ---
 
+## 📐 Diagramas e Modelagem (Documentação Técnica)
+
+A documentação de modelagem do projeto está na pasta [`docs/`](docs/) (renderizada
+automaticamente pelo GitHub):
+
+| Documento | Descrição |
+|-----------|-----------|
+| [Modelo de Dados (MER)](docs/MER.md) | Modelo dimensional (esquema estrela): Fato de tickets + dimensões, com chaves, cardinalidades e rastreabilidade dos campos. |
+| [Diagrama de Classes](docs/DIAGRAMA_CLASSE.md) | Arquitetura do código-fonte em camadas (carga → ETL → métricas → visualização → dashboard). |
+| [Diagrama de Casos de Uso](docs/CASO_DE_USO.md) | Interação dos atores (Gestor e Analista de Dados) com o sistema de BI. |
+
+---
+
 ## 💡 Principais Insights Operacionais
 
 Através das análises e do monitoramento pelo dashboard, destacam-se as seguintes descobertas:
