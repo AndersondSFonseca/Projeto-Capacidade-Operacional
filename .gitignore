@@ -1,3 +1,27 @@
+# Ambiente virtual Python
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
+.venv/
+venv/
+env/
+
+# Cache do Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Vídeos e arquivos grandes (entregues à parte)
 teste_senhas/
+*.mp4
 AC2 - PROJETO CAPACIDADE OPERACIONAL.mp4
 Capacidade Operacional.mp4
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+.vscode/

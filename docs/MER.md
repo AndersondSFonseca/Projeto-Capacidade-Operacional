@@ -169,5 +169,5 @@ Todos os relacionamentos são **1:N** (um-para-muitos) — padrão do esquema es
 
 A base original é uma **tabela única (flat table)**. O modelo acima representa a **modelagem
 dimensional** aplicada para fins de BI: a separação em Fato + Dimensões é o que permite os
-filtros globais e os cruzamentos (por analista, prioridade, período, canal etc.) usados no
-dashboard Streamlit e no relatório Power BI do projeto.
+filtros globais e os cruzamentos (por analista, prioridade, período, canal etc.) usados nos
+dashboards (Streamlit e Dash) do projeto.

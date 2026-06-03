@@ -30,7 +30,7 @@ O projeto inclui um dashboard web interativo, construído com **Streamlit + Plot
 O projeto não se resume apenas a uma tela de visualização, mas contempla o ciclo completo de inteligência de negócios:
 1. **Extração e Tratamento (ETL/ELT):** Scripts estruturados para limpeza e padronização dos dados brutos.
 2. **Modelagem:** Estruturação de dados limpos para consumo fluido pelas ferramentas de visualização.
-3. **Apresentação:** Dashboard Streamlit (e suporte complementar em Power BI) para entrega de valor ao usuário final.
+3. **Apresentação:** Dashboards interativos (Streamlit e Dash) para entrega de valor ao usuário final.
 
 ---
 
@@ -51,11 +51,10 @@ Este projeto foi desenhado para responder de forma clara às seguintes perguntas
 A stack tecnológica do projeto baseia-se fortemente no ecossistema de dados em Python:
 
 - **Linguagem Principal:** Python 3.10+
-- **Manipulação de Dados:** Pandas
-- **Dashboard e Web App:** Streamlit
-- **Visualização Gráfica:** Plotly
+- **Manipulação de Dados:** Pandas / NumPy
+- **Dashboard e Web App:** Streamlit (painel principal) e Dash (painel alternativo)
+- **Visualização Gráfica:** Plotly (interativo) e Matplotlib (gráficos estáticos)
 - **Ambiente de Exploração:** Jupyter Notebook
-- **Ferramentas Complementares de BI:** Power BI (para modelagem semântica e relatórios estáticos complementares)
 
 ---
 
@@ -78,11 +77,23 @@ pip install -r requirements.txt
 ```
 
 ### Inicializando o Dashboard de BI
-Para executar o dashboard Streamlit localmente, utilize o comando abaixo:
+Para executar o dashboard **Streamlit** (painel principal), utilize o comando abaixo:
 ```bash
 python -m streamlit run dashboard/app.py
 ```
 > O navegador padrão abrirá automaticamente o aplicativo no endereço local: `http://localhost:8501`.
+
+Alternativamente, há um painel construído em **Dash**:
+```bash
+python dashboard/dashboard_capacidade_operacional.py
+```
+> Acesse em: `http://127.0.0.1:8050`.
+
+### Gerando as métricas e gráficos (pipeline)
+Para rodar o tratamento de dados (ETL) e gerar a base limpa em `data/tratado/`:
+```bash
+python main.py
+```
 
 ---
 
@@ -95,16 +106,19 @@ Projeto - Capacidade Operacional/
 ├── data/
 │   ├── bruto/                  # Dados originais e não processados
 │   └── tratado/                # Base de dados limpa, padronizada e pronta para o BI
-├── notebooks/                  # Notebooks Jupyter (Exploração, Simulações, Dimensionamento)
+├── notebooks/                  # Notebooks Jupyter (01 a 07: exploração, SLA, simulação, dimensionamento)
 ├── src/
-│   ├── data_processing.py      # Lógicas de ETL (Limpeza e transformação)
+│   ├── data_loader.py          # Carga do dataset bruto
+│   ├── data_processing.py      # Lógicas de ETL (limpeza e transformação)
 │   ├── metrics.py              # Cálculos padronizados de métricas operacionais
 │   ├── analysis_export.py      # Exportação de tabelas e resultados
 │   └── analysis_visuals.py     # Geração programática de gráficos estáticos
-├── analysis/                   # Repositório de arquivos CSV exportados e imagens geradas
+├── analysis/                   # CSVs exportados e imagens geradas pelo pipeline
 ├── dashboard/
-│   └── app.py                  # Código fonte principal do Dashboard Streamlit
-├── powerbi/                    # Arquivos relacionados ao modelo semântico do Power BI
+│   ├── app.py                                  # Dashboard principal (Streamlit + Plotly)
+│   └── dashboard_capacidade_operacional.py     # Dashboard alternativo (Dash)
+├── docs/                       # Modelagem: MER, diagrama de classes e de casos de uso
+├── main.py                     # Orquestra o pipeline de tratamento de dados
 ├── requirements.txt            # Dependências do projeto Python
 └── README.md                   # Documentação oficial
 ```
